@@ -1,0 +1,19 @@
+# Tests the part of the shared MIDI modules that needs only Foundation (SharedPure.swift): the shared on / off state, the
+# migration, the owner lock, and the one-knob-one-action model. The apps that build from this repository (as a git submodule)
+# test their own build and compare shared.sha256 with the hash printed here.
+name: test
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Hash of the shared sources
+        run: ls *.swift | sort | xargs cat | shasum -a 256
+      - name: Shared tests
+        run: |
+          mkdir -p "$RUNNER_TEMP/t" && cp SharedPure.swift "$RUNNER_TEMP/t/" && cp tests/shared_test.swift "$RUNNER_TEMP/t/main.swift"
+          swiftc -o "$RUNNER_TEMP/shared_test" "$RUNNER_TEMP/t/SharedPure.swift" "$RUNNER_TEMP/t/main.swift" && "$RUNNER_TEMP/shared_test"
