@@ -1,7 +1,7 @@
 # TAKEOVER: MANTRA_MIDI_MODULES
 
 The MIDI modules shared by two Mac apps, as one source: **MIDI to MK Control** (`Mackie*.swift`) and **MIDI to Key Stroke**
-(`MidiKeys*.swift`, `Ports.swift`), plus the sharing itself (`SharedPure.swift`, `SharedHost.swift`).
+(`MidiKeys*.swift`), plus the sharing itself (`SharedPure.swift`, `SharedHost.swift`).
 
 Marko, 22.11.2026: "All the MIDI modules should only be actually in both places. We are sharing the modules. We can do that.
 So because they are shared modules, they also share the settings. It's the same thing, just in different views."
