@@ -138,8 +138,8 @@ func mkAgo(_ t: Date?) -> String {
 }
 
 // MARK: - Is Live playing (was live.lua)
-// AbletonOSC answers only to UDP 11001 and A1's ears hold that port, so the answer is read out of Live's own Log.txt:
-// AbletonOSC logs every is_playing it is asked about. The questions go to 127.0.0.1:11000.
+// AbletonOSC answers only to UDP 11011 and A1's ears hold that port, so the answer is read out of Live's own Log.txt:
+// AbletonOSC logs every is_playing it is asked about. The questions go to 127.0.0.1:11010.
 final class MKLive {
     var log: String?
     var pos: UInt64 = 0
@@ -153,7 +153,7 @@ final class MKLive {
         let msg = pad(address) + pad(",")
         let fd = socket(AF_INET, SOCK_DGRAM, 0); guard fd >= 0 else { return }
         defer { close(fd) }
-        var a = sockaddr_in(); a.sin_family = sa_family_t(AF_INET); a.sin_port = UInt16(11000).bigEndian
+        var a = sockaddr_in(); a.sin_family = sa_family_t(AF_INET); a.sin_port = UInt16(11010).bigEndian
         a.sin_addr.s_addr = inet_addr("127.0.0.1")
         _ = msg.withUnsafeBytes { b in withUnsafePointer(to: &a) { p in
             p.withMemoryRebound(to: sockaddr.self, capacity: 1) { sendto(fd, b.baseAddress, msg.count, 0, $0, socklen_t(MemoryLayout<sockaddr_in>.size)) } } }
